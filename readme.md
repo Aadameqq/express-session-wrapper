@@ -75,7 +75,7 @@ declare module "express-session-wrapper" {
 
 ```js
 import { configureSessionWrapper } from "express-session-wrapper";
-configureSessionWrapper(options?)
+app.use(configureSessionWrapper(options?))
 ```
 
 #### Options
