@@ -108,5 +108,5 @@ When session does not exist, it returns **false**
 
 ## License
 
-[See license](./LICENSE.md)
+[See license](./LICENSE)
 
