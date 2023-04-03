@@ -14,7 +14,7 @@
 ## Install
 
 ```bash
-npm install
+npm i express-session-wrapper
 ```
 
 ## Usage
@@ -106,7 +106,8 @@ Returns empty promise
 Returns saved session data  <br>
 When session does not exist, it returns **false**
 
-## License
-
-[See license](./LICENSE)
+[downloads-img]:https://img.shields.io/npm/dt/express-session-wrapper
+[downloads-url]:https://www.npmtrends.com/express-session-wrapper
+[npm-img]:https://img.shields.io/npm/v/express-session-wrapper
+[npm-url]:https://www.npmjs.com/package/express-session-wrapper
 
