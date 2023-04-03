@@ -1,4 +1,4 @@
 import './global-declarations';
 
-export * from './configureSessionWrapper';
-export * from './SessionWrapperData';
+export { configureSessionWrapper } from './configureSessionWrapper';
+export { SessionWrapperData } from './SessionWrapperData';

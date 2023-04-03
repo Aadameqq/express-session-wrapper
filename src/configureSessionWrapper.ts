@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { SessionWrapperData } from './SessionWrapperData';
 
-const convertSessionMethodToPromise =
+export const convertSessionMethodToPromise =
   (req: Request) => (method: (cb: (err: unknown) => void) => void) =>
     new Promise<void>((resolve, reject) => {
       method.bind(req.session)((err) => {
@@ -9,6 +9,21 @@ const convertSessionMethodToPromise =
         resolve();
       });
     });
+
+export const validateAbsoluteTimeout = (absoluteTimeout?: number | false) => {
+  if (
+    absoluteTimeout &&
+    (Number.isNaN(absoluteTimeout) || absoluteTimeout <= 0)
+  )
+    throw new Error(
+      'absoluteTimeout must be a number greater than zero or undefined',
+    );
+};
+
+export const shouldDestroySession = (
+  createdAt: number | undefined,
+  absoluteTimeout?: number | false,
+) => createdAt && absoluteTimeout && createdAt + absoluteTimeout < Date.now();
 
 interface ConfigureSessionWrapperProps {
   absoluteTimeoutInMilliseconds?: number | false;
@@ -18,13 +33,7 @@ interface ConfigureSessionWrapperProps {
 export const configureSessionWrapper = ({
   absoluteTimeoutInMilliseconds: absoluteTimeout,
 }: ConfigureSessionWrapperProps) => {
-  if (
-    absoluteTimeout &&
-    (Number.isNaN(absoluteTimeout) || absoluteTimeout <= 0)
-  )
-    throw new Error(
-      'absoluteTimeout must be a number greater than zero or undefined',
-    );
+  validateAbsoluteTimeout(absoluteTimeout);
 
   return async (req: Request, res: Response, next: NextFunction) => {
     const convert = convertSessionMethodToPromise(req);
@@ -50,11 +59,7 @@ export const configureSessionWrapper = ({
       getSessionDataIfExists,
     };
 
-    if (
-      req.session.createdAt &&
-      absoluteTimeout &&
-      req.session.createdAt + absoluteTimeout < Date.now()
-    ) {
+    if (shouldDestroySession(req.session.createdAt, absoluteTimeout)) {
       await destroySession();
     }
     next();
