@@ -1,6 +1,6 @@
 {
   "name": "express-session-wrapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A package that extends the functionality of the express-session package",
   "types": "./dist/cjs/types/index.d.ts",
   "main": "./dist/cjs/index.js",
@@ -58,5 +58,9 @@
   },
   "files": [
     "dist/**/*"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aadameqq/express-session-wrapper.git"
+  }
 }
