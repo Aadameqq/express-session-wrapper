@@ -75,19 +75,19 @@ declare module "express-session-wrapper" {
 
 ```js
 import { configureSessionWrapper } from "express-session-wrapper";
-app.use(configureSessionWrapper(options?))
+app.use(configureSessionWrapper(options))
 ```
 
 #### Options
 
 `absoluteTimeoutInMilliseconds?`
 
-Default: false
+Default: undefined
 
-| Value  | Description                                                                                                                                                    |
-|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| number | Absolute timeout in milliseconds. See [owasp](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#automatic-session-expiration) |
-| false  | Absolute timeout is disabled                                                                                                                                   |
+| Value     | Description                                                                                                                                                    |
+|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| number    | Absolute timeout in milliseconds. See [owasp](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#automatic-session-expiration) |
+| undefined | Absolute timeout is disabled                                                                                                                                   |
 
 #### req.sessionWrapper
 

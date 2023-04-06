@@ -10,10 +10,10 @@ export const convertSessionMethodToPromise =
       });
     });
 
-export const validateAbsoluteTimeout = (absoluteTimeout?: number | false) => {
+export const validateAbsoluteTimeout = (absoluteTimeout?: number) => {
   if (
-    absoluteTimeout &&
-    (Number.isNaN(absoluteTimeout) || absoluteTimeout <= 0)
+    absoluteTimeout !== undefined &&
+    (Number.isNaN(Number(absoluteTimeout)) || Number(absoluteTimeout) <= 0)
   )
     throw new Error(
       'absoluteTimeout must be a number greater than zero or undefined',
@@ -21,13 +21,15 @@ export const validateAbsoluteTimeout = (absoluteTimeout?: number | false) => {
 };
 
 export const shouldDestroySession = (
-  createdAt: number | undefined,
-  absoluteTimeout?: number | false,
-) => createdAt && absoluteTimeout && createdAt + absoluteTimeout < Date.now();
+  createdAt?: number,
+  absoluteTimeout?: number,
+) =>
+  createdAt &&
+  absoluteTimeout &&
+  Number(createdAt) + Number(absoluteTimeout) < Date.now();
 
 interface ConfigureSessionWrapperProps {
-  absoluteTimeoutInMilliseconds?: number | false;
-  clearCookieOnDestroy?: boolean;
+  absoluteTimeoutInMilliseconds?: number;
 }
 
 export const configureSessionWrapper = ({
