@@ -5,7 +5,7 @@
   "types": "./dist/cjs/types/index.d.ts",
   "main": "./dist/cjs/index.js",
   "scripts": {
-    "compile:mjs": "tsc -p ./tsconfig.mjs.json",
+    "compile:mjs": "tsc -p ./tsconfig.mjs.json && ren dist\\esm\\index.js index.mjs",
     "compile:cjs": "tsc -p ./tsconfig.cjs.json",
     "build": "npm run compile:cjs && npm run compile:mjs",
     "prepack": "npm run build",
