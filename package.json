@@ -5,10 +5,12 @@
   "types": "./dist/cjs/types/index.d.ts",
   "main": "./dist/cjs/index.js",
   "scripts": {
-    "compile:mjs": "tsc -p ./tsconfig.mjs.json && ren dist\\esm\\index.js index.mjs",
+    "compile:mjs": "tsc -p ./tsconfig.mjs.json",
     "compile:cjs": "tsc -p ./tsconfig.cjs.json",
     "build": "npm run compile:cjs && npm run compile:mjs",
-    "prepack": "npm run build",
+    "build:linux": "npm run build && mv dist/esm/index.js dist/esm/index.mjs",
+    "build:windows": "npm run build && ren dist\\esm\\index.js index.mjs",
+    "prepack": "npm run build:windows",
     "lint": "npx eslint src/**/*.ts",
     "test": "jest --passWithNoTests",
     "prettier-check": "npx prettier --check src"
